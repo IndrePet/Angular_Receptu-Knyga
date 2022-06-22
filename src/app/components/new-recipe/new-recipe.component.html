@@ -1,0 +1,83 @@
+<div class="card">
+  <div class="card-header">Pridėti naują receptą</div>
+  <div class="card-body">
+    <form [formGroup]="recipeForm" (ngSubmit)="addRecipe()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Recepto pavadinimas:</label>
+        <input
+          id="name"
+          class="form-control"
+          formControlName="name"
+          placeholder="Pavadinimas"
+        />
+        <span
+          *ngIf="
+            !recipeForm.get('name')?.valid && recipeForm.get('name')?.touched
+          "
+          >Pavadinimas įvestas neteisingai</span
+        >
+      </div>
+      <div class="mb-3">
+        <label for="preparationTime" class="form-label"
+          >Gaminimo trukmė (minutėmis):</label
+        >
+        <input
+          type="number"
+          id="preparationTime"
+          class="form-control"
+          formControlName="preparationTime"
+        />
+        <span
+          *ngIf="
+            !recipeForm.get('preparationTime')?.valid &&
+            recipeForm.get('preparationTime')?.touched
+          "
+          >Trukmė įvesta neteisingai (vedama 5 min. intervalais)</span
+        >
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Aprašymas:</label>
+        <textarea
+          id="description"
+          class="form-control"
+          formControlName="description"
+        >
+Įveskite recepto aprašymą.</textarea
+        >
+        <span
+          *ngIf="
+            !recipeForm.get('description')?.valid &&
+            recipeForm.get('description')?.touched
+          "
+          >Aprašymas privalomas</span
+        >
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Nuoroda į nuotrauką:</label>
+        <input
+          id="image"
+          class="form-control"
+          formControlName="image"
+          placeholder="URL://..."
+        />
+      </div>
+      <div class="mb-3">
+        <label for="kcal" class="form-label">Kalorijos:</label>
+        <input
+          type="number"
+          id="kcal"
+          class="form-control"
+          formControlName="kcal"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!recipeForm.valid"
+      >
+        Pridėti
+      </button>
+    </form>
+  </div>
+</div>
