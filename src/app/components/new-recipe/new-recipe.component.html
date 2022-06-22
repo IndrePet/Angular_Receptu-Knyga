@@ -60,6 +60,12 @@
           formControlName="image"
           placeholder="URL://..."
         />
+        <span
+          *ngIf="
+            !recipeForm.get('image')?.valid && recipeForm.get('image')?.touched
+          "
+          >Netinkama nuoroda</span
+        >
       </div>
       <div class="mb-3">
         <label for="kcal" class="form-label">Kalorijos:</label>

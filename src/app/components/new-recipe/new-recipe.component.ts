@@ -20,7 +20,7 @@ export class NewRecipeComponent implements OnInit {
         this.timeValidator,
       ]),
       description: new FormControl(null, Validators.required),
-      image: new FormControl(null),
+      image: new FormControl(null, [Validators.required, this.urlValidator]),
       kcal: new FormControl(null),
     });
   }
@@ -30,6 +30,17 @@ export class NewRecipeComponent implements OnInit {
   timeValidator(control: FormControl): { [s: string]: boolean } | null {
     if (control.value % 5) {
       return { mustBe5MinIntervals: true };
+    } else {
+      return null;
+    }
+  }
+
+  urlValidator(control: FormControl): { [s: string]: boolean } | null {
+    const regex = new RegExp(
+      /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    );
+    if (regex.test(control.value)) {
+      return { mustBeValidURL: true };
     } else {
       return null;
     }
