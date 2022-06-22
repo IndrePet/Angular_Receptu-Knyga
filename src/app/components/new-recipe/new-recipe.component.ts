@@ -29,7 +29,7 @@ export class NewRecipeComponent implements OnInit {
 
   timeValidator(control: FormControl): { [s: string]: boolean } | null {
     if (control.value % 5) {
-      return { 'Gaminimo trukme 5 min intervalais': true };
+      return { mustBe5MinIntervals: true };
     } else {
       return null;
     }
