@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
   selector: 'app-new-recipe',
@@ -15,7 +16,7 @@ import {
 export class NewRecipeComponent implements OnInit {
   public recipeForm: FormGroup;
 
-  constructor() {
+  constructor(private recipeService: RecipeService) {
     this.recipeForm = new FormGroup({
       name: new FormControl(null, [
         Validators.required,
@@ -89,6 +90,6 @@ export class NewRecipeComponent implements OnInit {
   }
 
   public addRecipe() {
-    console.log(this.recipeForm);
+    this.recipeService.addRecipe(this.recipeForm.value).subscribe(() => {});
   }
 }

@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header">Receptai</div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Pavadinimas</th>
+          <th>Gaminimo trukmė</th>
+          <th>Aprašymas</th>
+          <th>Nuotrauka</th>
+          <th>Kalorijos</th>
+          <th>Alergenai</th>
+          <th>Ingredientai</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let recipe of recipes">
+          <td>{{ recipe.name }}</td>
+          <td>{{ recipe.preparationTime }}</td>
+          <td>{{ recipe.description }}</td>
+          <td><img [src]="recipe.image" height="100px" width="100px" /></td>
+          <td>{{ recipe.kcal }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let allergy of recipe.allergies">{{ allergy }}</li>
+            </ul>
+          </td>
+          <td>
+            <div *ngFor="let ingredient of recipe.ingredients">
+              {{ ingredient.ingredientName }} {{ ingredient.amount
+              }}{{ ingredient.unit }}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
