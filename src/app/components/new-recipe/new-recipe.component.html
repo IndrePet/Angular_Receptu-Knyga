@@ -76,7 +76,67 @@
           formControlName="kcal"
         />
       </div>
-
+      <br />
+      <div formArrayName="allergies">
+        <h5>Alergenai</h5>
+        <div class="mb-3" *ngFor="let allergy of allergies(); let i = index">
+          <input class="form-control" [formControlName]="i" />
+        </div>
+      </div>
+      <button type="button" class="btn btn-info" (click)="addAllergy()">
+        Pridėti alergeną
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger float-end"
+        (click)="removeAllergy()"
+      >
+        Pašalinti alergeną
+      </button>
+      <br />
+      <div formArrayName="ingredients">
+        <h5>Ingredientai</h5>
+        <div
+          class="mb-3 row"
+          *ngFor="let ingredient of ingredients()"
+          [formGroup]="abstractToFormGroup(ingredient)"
+        >
+          <div class="col-md-4">
+            <input
+              formControlName="ingredientName"
+              class="form-control"
+              placeholder="Pavadinimas"
+            />
+          </div>
+          <div class="col-md-4">
+            <input
+              type="number"
+              formControlName="amount"
+              class="form-control"
+              placeholder="Kiekis"
+            />
+          </div>
+          <div class="col-md-4">
+            <select formControlName="ingredientName" class="form-select">
+              <option value="vnt">Vnt.</option>
+              <option value="kg">Kg.</option>
+              <option value="g">G.</option>
+              <option value="stikline">Stiklinė</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-info" (click)="addIngredient()">
+        Pridėti ingredientą
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger float-end"
+        (click)="removeIngredient()"
+      >
+        Pašalinti ingredientą
+      </button>
+      <hr />
       <button
         type="submit"
         class="btn btn-success"

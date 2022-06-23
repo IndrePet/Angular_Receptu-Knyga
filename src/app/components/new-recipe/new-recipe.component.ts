@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-new-recipe',
@@ -22,6 +28,8 @@ export class NewRecipeComponent implements OnInit {
       description: new FormControl(null, Validators.required),
       image: new FormControl(null, [Validators.required, this.urlValidator]),
       kcal: new FormControl(null),
+      ingredients: new FormArray([]),
+      allergies: new FormArray([]),
     });
   }
 
@@ -44,6 +52,39 @@ export class NewRecipeComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  public addAllergy() {
+    const allergy = new FormControl(null);
+    (<FormArray>this.recipeForm.get('allergies')).push(allergy);
+  }
+  public removeAllergy() {
+    (<FormArray>this.recipeForm.get('allergies')).controls.pop();
+  }
+  public allergies() {
+    return (<FormArray>this.recipeForm.get('allergies')).controls;
+  }
+
+  public addIngredient() {
+    const ingredient = new FormGroup({
+      ingredientName: new FormControl(null),
+      amount: new FormControl(null),
+      unit: new FormControl(null),
+    });
+
+    (<FormArray>this.recipeForm.get('ingredients')).push(ingredient);
+  }
+
+  public removeIngredient() {
+    (<FormArray>this.recipeForm.get('ingredients')).controls.pop();
+  }
+
+  public ingredients() {
+    return (<FormArray>this.recipeForm.get('ingredients')).controls;
+  }
+
+  public abstractToFormGroup(formGroup: AbstractControl) {
+    return <FormGroup>formGroup;
   }
 
   public addRecipe() {
