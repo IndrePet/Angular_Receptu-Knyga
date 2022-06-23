@@ -45,9 +45,10 @@ export class NewRecipeComponent implements OnInit {
 
   urlValidator(control: FormControl): { [s: string]: boolean } | null {
     const regex = new RegExp(
-      /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+      /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
+      'g'
     );
-    if (regex.test(control.value)) {
+    if (!regex.test(control.value)) {
       return { mustBeValidURL: true };
     } else {
       return null;
@@ -59,7 +60,7 @@ export class NewRecipeComponent implements OnInit {
     (<FormArray>this.recipeForm.get('allergies')).push(allergy);
   }
   public removeAllergy() {
-    (<FormArray>this.recipeForm.get('allergies')).controls.pop();
+    (<FormArray>this.recipeForm.get('allergies')).removeAt(-1);
   }
   public allergies() {
     return (<FormArray>this.recipeForm.get('allergies')).controls;
@@ -76,7 +77,7 @@ export class NewRecipeComponent implements OnInit {
   }
 
   public removeIngredient() {
-    (<FormArray>this.recipeForm.get('ingredients')).controls.pop();
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(-1);
   }
 
   public ingredients() {
