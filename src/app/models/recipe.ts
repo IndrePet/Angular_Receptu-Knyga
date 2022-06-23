@@ -1,10 +1,10 @@
 export interface Recipe {
   id?: string;
   name: string;
-  preparationTime: string;
+  preparationTime: number;
   description: string;
   image: string;
-  kcal: string;
-  ingredients: { ingredientName: string; amount: string; unit: string }[];
+  kcal: number;
+  ingredients: { ingredientName: string; amount: number; unit: string }[];
   allergies: string[];
 }
