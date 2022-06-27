@@ -16,6 +16,7 @@
           "
           >Pavadinimas įvestas neteisingai</span
         >
+        <span>{{ outError() }}</span>
       </div>
       <div class="mb-3">
         <label for="preparationTime" class="form-label"
@@ -75,6 +76,15 @@
           class="form-control"
           formControlName="kcal"
         />
+      </div>
+      <div class="mb-3">
+        <label for="mealTime">Rekomenduojamas laikas:</label>
+        <select id="mealTime" formControlName="mealTime" class="form-select">
+          <option value="Pusryčiai">Pusryčiai</option>
+          <option value="Priešpiečiai">Priešpiečiai</option>
+          <option value="Pietūs">Pietūs</option>
+          <option value="Vakarienė">Vakarienė</option>
+        </select>
       </div>
       <br />
       <div formArrayName="allergies">

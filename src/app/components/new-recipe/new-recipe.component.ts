@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  AsyncValidatorFn,
   FormArray,
   FormControl,
   FormGroup,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { map, Observable } from 'rxjs';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
@@ -18,10 +21,11 @@ export class NewRecipeComponent implements OnInit {
 
   constructor(private recipeService: RecipeService) {
     this.recipeForm = new FormGroup({
-      name: new FormControl(null, [
-        Validators.required,
-        Validators.maxLength(30),
-      ]),
+      name: new FormControl(
+        null,
+        [Validators.required, Validators.maxLength(30)],
+        this.newRecipeValidator()
+      ),
       preparationTime: new FormControl(null, [
         Validators.required,
         this.timeValidator,
@@ -31,10 +35,42 @@ export class NewRecipeComponent implements OnInit {
       kcal: new FormControl(null),
       ingredients: new FormArray([]),
       allergies: new FormArray([]),
+      mealTime: new FormControl(null, this.newRecipeValidator()),
     });
   }
 
   ngOnInit(): void {}
+
+  newRecipeValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.recipeService.getRecipe().pipe(
+        map((response) => {
+          let taken = false;
+          console.log(this.recipeForm.get('mealTime')?.value);
+          response.forEach((recipe) => {
+            if (
+              recipe.name === control.value &&
+              recipe.mealTime === this.recipeForm.get('mealTime')?.value
+            ) {
+              taken = true;
+            }
+          });
+          if (taken) {
+            return { error: 'Toks receptas jau egzistuoja' };
+          } else {
+            return null;
+          }
+        })
+      );
+    };
+  }
+  public outError() {
+    let control = this.recipeForm.get('name');
+    if (control?.errors != null) {
+      return control.errors['error'];
+    }
+    return '';
+  }
 
   timeValidator(control: FormControl): { [s: string]: boolean } | null {
     if (control.value % 5) {

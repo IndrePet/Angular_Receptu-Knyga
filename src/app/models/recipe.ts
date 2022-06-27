@@ -7,4 +7,5 @@ export interface Recipe {
   kcal: number;
   ingredients: { ingredientName: string; amount: number; unit: string }[];
   allergies: string[];
+  mealTime: string;
 }

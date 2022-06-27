@@ -11,6 +11,7 @@
           <th>Kalorijos</th>
           <th>Alergenai</th>
           <th>Ingredientai</th>
+          <th>Rekomenduojamas laikas</th>
         </tr>
       </thead>
       <tbody>
@@ -30,6 +31,9 @@
               {{ ingredient.ingredientName }} {{ ingredient.amount
               }}{{ ingredient.unit }}
             </div>
+          </td>
+          <td>
+            {{ recipe.mealTime }}
           </td>
         </tr>
       </tbody>
