@@ -142,5 +142,6 @@ export class NewRecipeComponent implements OnInit {
 
   public addRecipe() {
     this.recipeService.addRecipe(this.recipeForm.value).subscribe(() => {});
+    this.recipeService.addMealTimeCount(this.recipeForm.value.mealTime);
   }
 }

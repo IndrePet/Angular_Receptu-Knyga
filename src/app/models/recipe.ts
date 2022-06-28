@@ -8,4 +8,5 @@ export interface Recipe {
   ingredients: { ingredientName: string; amount: number; unit: string }[];
   allergies: string[];
   mealTime: string;
+  likes: number;
 }

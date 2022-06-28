@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Recipe } from '../models/recipe';
 
@@ -15,6 +15,8 @@ export class RecipeService {
     return this.http.post(this.url + 'recipes.json', recipe);
   }
 
+  public onRecipeUpdate = new EventEmitter();
+
   public getRecipe() {
     return this.http
       .get<{ [key: string]: Recipe }>(this.url + 'recipes.json')
@@ -27,5 +29,38 @@ export class RecipeService {
           return recipes;
         })
       );
+  }
+
+  public addLike(id: string) {
+    let likes = 0;
+    this.http
+      .get<number>(this.url + 'recipes/' + id + '/likes.json')
+      .subscribe((response) => {
+        likes = response;
+        likes++;
+        this.http
+          .patch(this.url + 'recipes/' + id + '.json', {
+            likes,
+          })
+          .subscribe(() => {
+            this.onRecipeUpdate.emit();
+          });
+      });
+  }
+  public addMealTimeCount(mealTime: string) {
+    let count = 0;
+    this.http
+      .get<number>(this.url + 'recipeTime/' + mealTime + '.json')
+      .subscribe((response) => {
+        count = response;
+        count++;
+        console.log(count, response);
+
+        this.http
+          .patch(this.url + 'recipeTime.json', {
+            [mealTime]: count,
+          })
+          .subscribe(() => {});
+      });
   }
 }

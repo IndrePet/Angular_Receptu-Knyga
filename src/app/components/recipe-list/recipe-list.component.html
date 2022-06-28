@@ -12,6 +12,8 @@
           <th>Alergenai</th>
           <th>Ingredientai</th>
           <th>Rekomenduojamas laikas</th>
+          <th>Patinka</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +36,12 @@
           </td>
           <td>
             {{ recipe.mealTime }}
+          </td>
+          <td>{{ recipe.likes }}</td>
+          <td>
+            <button class="btn btn-success" (click)="like(recipe.id)">
+              👍
+            </button>
           </td>
         </tr>
       </tbody>
