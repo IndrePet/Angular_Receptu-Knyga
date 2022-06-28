@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { map, Observable } from 'rxjs';
+import { IngredientsService } from 'src/app/services/ingredients.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 
 @Component({
@@ -18,8 +19,12 @@ import { RecipeService } from 'src/app/services/recipe.service';
 })
 export class NewRecipeComponent implements OnInit {
   public recipeForm: FormGroup;
+  public allIngredients: { ingredient: string }[] = [];
 
-  constructor(private recipeService: RecipeService) {
+  constructor(
+    private recipeService: RecipeService,
+    private ingredientsService: IngredientsService
+  ) {
     this.recipeForm = new FormGroup({
       name: new FormControl(
         null,
@@ -39,14 +44,24 @@ export class NewRecipeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  private getIngredients() {
+    this.ingredientsService.getIngredients().subscribe((result) => {
+      this.allIngredients = result;
+    });
+  }
+
+  ngOnInit(): void {
+    this.getIngredients();
+    this.ingredientsService.newIngredient.subscribe(() => {
+      this.getIngredients();
+    });
+  }
 
   newRecipeValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       return this.recipeService.getRecipe().pipe(
         map((response) => {
           let taken = false;
-          console.log(this.recipeForm.get('mealTime')?.value);
           response.forEach((recipe) => {
             if (
               recipe.name === control.value &&
