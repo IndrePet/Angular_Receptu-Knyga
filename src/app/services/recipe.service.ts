@@ -54,8 +54,6 @@ export class RecipeService {
       .subscribe((response) => {
         count = response;
         count++;
-        console.log(count, response);
-
         this.http
           .patch(this.url + 'recipeTime.json', {
             [mealTime]: count,
