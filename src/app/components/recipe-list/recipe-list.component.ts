@@ -9,11 +9,40 @@ import { RecipeService } from 'src/app/services/recipe.service';
 })
 export class RecipeListComponent implements OnInit {
   public recipes: Recipe[] = [];
+  public filteredRecipes: Recipe[] = [];
+  public filterPusryciai = false;
+  public filterPriespieciai = false;
+  public filterPietus = false;
+  public filterVakariene = false;
+  public filterVisi = true;
+
   constructor(private recipeService: RecipeService) {}
+
+  private filterRecipes() {
+    this.filteredRecipes = [];
+    this.recipes.forEach((e) => {
+      if (this.filterVisi) {
+        this.filteredRecipes.push(e);
+      }
+      if (this.filterPusryciai && e.mealTime === 'Pusryčiai') {
+        this.filteredRecipes.push(e);
+      }
+      if (this.filterPriespieciai && e.mealTime === 'Priešpiečiai') {
+        this.filteredRecipes.push(e);
+      }
+      if (this.filterPietus && e.mealTime === 'Pietūs') {
+        this.filteredRecipes.push(e);
+      }
+      if (this.filterVakariene && e.mealTime === 'Vakarienė') {
+        this.filteredRecipes.push(e);
+      }
+    });
+  }
 
   private getRecipes() {
     this.recipeService.getRecipe().subscribe((response) => {
       this.recipes = response;
+      this.filterRecipes();
     });
   }
 
@@ -22,5 +51,9 @@ export class RecipeListComponent implements OnInit {
     this.recipeService.onRecipeUpdate.subscribe(() => {
       this.getRecipes();
     });
+  }
+
+  public applyFilter() {
+    this.filterRecipes();
   }
 }

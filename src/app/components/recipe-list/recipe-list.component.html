@@ -1,6 +1,59 @@
+<div class="row mb-3">
+  <div class="col-md-3 text-end">Filtruoti receptus:</div>
+  <div class="col-md-9">
+    <input
+      class="form-check-input me-1"
+      type="checkbox"
+      checked
+      value="true"
+      id="visi"
+      [(ngModel)]="filterVisi"
+      (change)="applyFilter()"
+    />
+    <label class="form-check-label me-2" for="visi"> Rodyti visus </label>
+    <input
+      class="form-check-input me-1"
+      type="checkbox"
+      value="true"
+      id="pusryciai"
+      [(ngModel)]="filterPusryciai"
+      (change)="applyFilter()"
+    />
+    <label class="form-check-label me-2" for="pusryciai"> Pusryčiai </label>
+    <input
+      class="form-check-input me-1"
+      type="checkbox"
+      value="2"
+      id="priespieciai"
+      [(ngModel)]="filterPriespieciai"
+      (change)="applyFilter()"
+    />
+    <label class="form-check-label me-2" for="priespieciai">
+      Priešpiečiai
+    </label>
+    <input
+      class="form-check-input me-1"
+      type="checkbox"
+      value="3"
+      id="pietus"
+      [(ngModel)]="filterPietus"
+      (change)="applyFilter()"
+    />
+    <label class="form-check-label me-2" for="pietus"> Pietūs </label>
+    <input
+      class="form-check-input me-1"
+      type="checkbox"
+      value="4"
+      id="vakariene"
+      [(ngModel)]="filterVakariene"
+      (change)="applyFilter()"
+    />
+    <label class="form-check-label" for="vakariene"> Vakarienė </label>
+  </div>
+</div>
 <div class="row">
   <app-recipe-item
-    *ngFor="let recipe of recipes"
+    *ngFor="let recipe of filteredRecipes"
     class="col-lg-3 col-md-4"
     [recipe]="recipe"
   ></app-recipe-item>
