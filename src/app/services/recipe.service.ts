@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { Recipe } from '../models/recipe';
 
@@ -9,13 +10,14 @@ import { Recipe } from '../models/recipe';
 export class RecipeService {
   private readonly url =
     'https://receptu-knygele-default-rtdb.europe-west1.firebasedatabase.app/';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public addRecipe(recipe: Recipe) {
     return this.http.post(this.url + 'recipes.json', recipe);
   }
 
   public onRecipeUpdate = new EventEmitter();
+  public recipees: Recipe[] = [];
 
   public getRecipe() {
     return this.http
@@ -26,9 +28,23 @@ export class RecipeService {
           for (let key in response) {
             recipes.push({ ...response[key], id: key });
           }
+          this.recipees = recipes;
           return recipes;
         })
       );
+  }
+
+  public getRecipeById(id: string): Recipe | null {
+    let result: Recipe | null = null;
+    this.recipees.forEach((recipe) => {
+      if (recipe.id != null && recipe.id == id) {
+        result = recipe;
+      }
+    });
+    if (result == null) {
+      this.router.navigate(['/']);
+    }
+    return result;
   }
 
   public addLike(id: string) {

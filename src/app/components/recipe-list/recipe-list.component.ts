@@ -23,10 +23,4 @@ export class RecipeListComponent implements OnInit {
       this.getRecipes();
     });
   }
-
-  public like(id?: string) {
-    if (id != null) {
-      this.recipeService.addLike(id);
-    }
-  }
 }

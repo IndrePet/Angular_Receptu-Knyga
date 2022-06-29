@@ -1,50 +1,7 @@
-<div class="card">
-  <div class="card-header">Receptai</div>
-  <div class="card-body">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Pavadinimas</th>
-          <th>Gaminimo trukmė</th>
-          <th>Aprašymas</th>
-          <th>Nuotrauka</th>
-          <th>Kalorijos</th>
-          <th>Alergenai</th>
-          <th>Ingredientai</th>
-          <th>Rekomenduojamas laikas</th>
-          <th>Patinka</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let recipe of recipes">
-          <td>{{ recipe.name }}</td>
-          <td>{{ recipe.preparationTime }}</td>
-          <td>{{ recipe.description }}</td>
-          <td><img [src]="recipe.image" height="100px" width="100px" /></td>
-          <td>{{ recipe.kcal }}</td>
-          <td>
-            <ul>
-              <li *ngFor="let allergy of recipe.allergies">{{ allergy }}</li>
-            </ul>
-          </td>
-          <td>
-            <div *ngFor="let ingredient of recipe.ingredients">
-              {{ ingredient.ingredientName }} {{ ingredient.amount
-              }}{{ ingredient.unit }}
-            </div>
-          </td>
-          <td>
-            {{ recipe.mealTime }}
-          </td>
-          <td>{{ recipe.likes }}</td>
-          <td>
-            <button class="btn btn-success" (click)="like(recipe.id)">
-              👍
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="row">
+  <app-recipe-item
+    *ngFor="let recipe of recipes"
+    class="col-lg-3 col-md-4"
+    [recipe]="recipe"
+  ></app-recipe-item>
 </div>

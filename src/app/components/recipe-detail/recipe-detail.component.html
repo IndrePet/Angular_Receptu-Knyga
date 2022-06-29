@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-header">Receptas</div>
+  <div class="card-body">
+    <h5 class="card-title">{{ recipe?.name }}</h5>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Recepto detalės</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Gaminimo trukmė</b></td>
+          <td>{{ recipe?.preparationTime }}</td>
+        </tr>
+        <tr>
+          <td><b>Aprašymas</b></td>
+          <td>{{ recipe?.description }}</td>
+        </tr>
+        <tr>
+          <td><b>Nuotrauka</b></td>
+          <td><img [src]="recipe?.image" height="100px" width="100px" /></td>
+        </tr>
+        <tr>
+          <td><b>Kalorijos</b></td>
+          <td>{{ recipe?.kcal }}</td>
+        </tr>
+        <tr>
+          <td><b>Ingredientai</b></td>
+          <td>
+            <ul>
+              <li *ngFor="let ingredient of recipe?.ingredients">
+                {{ ingredient.ingredientName }} {{ ingredient.amount
+                }}{{ ingredient.unit }}
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Alergenai</b></td>
+          <td>
+            <ul>
+              <li *ngFor="let allergy of recipe?.allergies">{{ allergy }}</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Rekomenduojamas laikas</b></td>
+          <td>{{ recipe?.mealTime }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="card-footer">
+      <b>Patiktukai</b>
+      {{ recipe?.likes }}<br /><button
+        class="btn btn-success"
+        (click)="like(recipe?.id)"
+      >
+        👍
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ recipe?.name }}</h5>
+    <img [src]="recipe?.image" height="100px" width="100px" />
+
+    <p class="card-text">
+      Rekomenduojamas laikas: <b>{{ recipe?.mealTime }}</b>
+    </p>
+  </div>
+  <div class="card-footer">
+    <div class="float-start">
+      <span class="text-muted">
+        Patiktukai: <b>{{ recipe?.likes }}</b></span
+      >
+    </div>
+    <button
+      class="btn btn-success float-end btn-sm"
+      (click)="recipeDetails(recipe?.id)"
+    >
+      Detaliau
+    </button>
+  </div>
+</div>
