@@ -1,3 +1,10 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -16,10 +23,50 @@ import { RecipeService } from 'src/app/services/recipe.service';
   selector: 'app-new-recipe',
   templateUrl: './new-recipe.component.html',
   styleUrls: ['./new-recipe.component.css'],
+  animations: [
+    trigger('expand', [
+      state(
+        'small',
+        style({
+          width: '300px',
+          height: '150px',
+          'font-size': '1rem',
+        })
+      ),
+      state(
+        'big',
+        style({
+          width: '600px',
+          height: '300px',
+          'font-size': '2rem',
+        })
+      ),
+      transition('small=>big', [animate(1000)]),
+      transition('big=>small', [animate(1000)]),
+    ]),
+    trigger('showSubmit', [
+      state(
+        'hide',
+        style({
+          transform: 'translateX(-200px)',
+        })
+      ),
+      state(
+        'show',
+        style({
+          transform: 'translateX(100px)',
+        })
+      ),
+      transition('show=>hide', [animate(1000)]),
+      transition('hide=>show', [animate(1000)]),
+    ]),
+  ],
 })
 export class NewRecipeComponent implements OnInit {
   public recipeForm: FormGroup;
   public allIngredients: { ingredient: string }[] = [];
+  public animationState = 'small';
+  public submitButton = 'hide';
 
   constructor(
     private recipeService: RecipeService,
@@ -40,8 +87,16 @@ export class NewRecipeComponent implements OnInit {
       kcal: new FormControl(null),
       ingredients: new FormArray([]),
       allergies: new FormArray([]),
-      mealTime: new FormControl(null, this.newRecipeValidator()),
+      mealTime: new FormControl(null),
     });
+  }
+
+  public onFocus() {
+    this.animationState = 'big';
+  }
+
+  public onFocusOut() {
+    this.animationState = 'small';
   }
 
   private getIngredients() {
@@ -54,6 +109,14 @@ export class NewRecipeComponent implements OnInit {
     this.getIngredients();
     this.ingredientsService.newIngredient.subscribe(() => {
       this.getIngredients();
+    });
+
+    this.recipeForm.statusChanges.subscribe((response) => {
+      if (response === 'VALID') {
+        this.submitButton = 'show';
+      } else {
+        this.submitButton = 'hide';
+      }
     });
   }
 

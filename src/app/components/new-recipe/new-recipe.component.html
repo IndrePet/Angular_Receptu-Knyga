@@ -42,6 +42,9 @@
           id="description"
           class="form-control"
           formControlName="description"
+          (focus)="onFocus()"
+          (focusout)="onFocusOut()"
+          [@expand]="animationState"
         >
 Įveskite recepto aprašymą.</textarea
         >
@@ -147,7 +150,13 @@
         Pašalinti ingredientą
       </button>
       <hr />
-      <button type="submit" class="btn btn-success">Pridėti</button>
+      <button
+        type="submit"
+        class="btn btn-success"
+        [@showSubmit]="submitButton"
+      >
+        Pridėti
+      </button>
     </form>
   </div>
 </div>
