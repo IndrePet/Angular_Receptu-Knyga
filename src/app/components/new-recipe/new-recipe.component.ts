@@ -60,6 +60,51 @@ import { RecipeService } from 'src/app/services/recipe.service';
       transition('show=>hide', [animate(1000)]),
       transition('hide=>show', [animate(1000)]),
     ]),
+    trigger('ingredientAnimation', [
+      state(
+        'show',
+        style({
+          opacity: '1',
+          height: '30px',
+        })
+      ),
+      transition('void=>*', [
+        style({
+          opacity: '0',
+          height: '0px',
+        }),
+        animate(
+          500,
+          style({
+            height: '30px',
+          })
+        ),
+        animate(
+          750,
+          style({
+            opacity: '1',
+          })
+        ),
+      ]),
+      transition('*=>void', [
+        style({
+          opacity: '1',
+          height: '30px',
+        }),
+        animate(
+          750,
+          style({
+            transform: 'translateX(5000px)',
+          })
+        ),
+        animate(
+          500,
+          style({
+            height: '0px',
+          })
+        ),
+      ]),
+    ]),
   ],
 })
 export class NewRecipeComponent implements OnInit {

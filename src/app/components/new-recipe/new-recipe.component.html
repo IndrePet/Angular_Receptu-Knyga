@@ -113,6 +113,7 @@
           class="mb-3 row"
           *ngFor="let ingredient of ingredients()"
           [formGroup]="abstractToFormGroup(ingredient)"
+          [@ingredientAnimation]
         >
           <div class="col-md-4">
             <select class="form-select" formControlName="ingredientName">
