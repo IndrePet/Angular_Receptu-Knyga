@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AddIngredientsComponent } from './components/add-ingredients/add-ingredients.component';
 import { NewRecipeComponent } from './components/new-recipe/new-recipe.component';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
@@ -10,10 +10,19 @@ const routes: Routes = [
   { path: 'recipe/:id', component: RecipeDetailComponent },
   { path: 'add-recipe', component: NewRecipeComponent },
   { path: 'add-ingredient', component: AddIngredientsComponent },
+  {
+    path: 'documentation',
+    loadChildren: () =>
+      import('./documentation/documentation.module').then(
+        (m) => m.DocumentationModule
+      ),
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

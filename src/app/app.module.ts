@@ -11,7 +11,6 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { RecipeItemComponent } from './components/recipe-list/recipe-item/recipe-item.component';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DocumentationModule } from './documentation/documentation.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,6 @@ import { DocumentationModule } from './documentation/documentation.module';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    DocumentationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

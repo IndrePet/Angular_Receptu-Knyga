@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Recipe } from '../models/recipe';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeService {
-  private readonly url =
-    'https://receptu-knygele-default-rtdb.europe-west1.firebasedatabase.app/';
+  private readonly url = environment.dbUrl;
   constructor(private http: HttpClient, private router: Router) {}
 
   public addRecipe(recipe: Recipe) {
