@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { NewRecipeComponent } from './new-recipe.component';
 
@@ -8,9 +11,9 @@ describe('NewRecipeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewRecipeComponent ]
-    })
-    .compileComponents();
+      declarations: [NewRecipeComponent],
+      imports: [HttpClientModule, RouterTestingModule, BrowserAnimationsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NewRecipeComponent);
     component = fixture.componentInstance;

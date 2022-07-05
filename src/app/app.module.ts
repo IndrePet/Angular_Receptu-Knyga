@@ -11,6 +11,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { RecipeItemComponent } from './components/recipe-list/recipe-item/recipe-item.component';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IngredientComponent } from './components/ingredient/ingredient.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NavigationComponent,
     RecipeItemComponent,
     RecipeDetailComponent,
+    IngredientComponent,
   ],
   imports: [
     BrowserModule,

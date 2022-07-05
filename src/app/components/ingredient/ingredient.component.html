@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-header">Ingredient</div>
+  <div class="card-body">
+    <h3 id="name"><b>Pavadinimas:</b> {{ name }}</h3>
+    <p id="quantity"><b>Kiekis: </b>{{ quantity }}</p>
+    <p id="price"><b>Kaina: </b>{{ price }}</p>
+    <p *ngIf="price !== null" id="totalPrice">
+      <b>Iš viso: </b>{{ totalPrice() }}
+    </p>
+  </div>
+</div>
